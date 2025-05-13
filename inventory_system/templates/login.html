@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EstoqueFácil</title>
+
+    <style>
+        body {
+                background-image: url('https://d3gl9i7k06qt57.cloudfront.net/guia/wp-content/uploads/2021/04/20.jpg'); /* Substitua pelo caminho da sua imagem */
+                background-size: cover;
+                background-position: center;
+            font-family: sans-serif;
+                display: flex;
+                justify-content: center; /* Centraliza horizontalmente */
+                align-items: center; /* Centraliza verticalmente */
+                min-height: 100vh; /* Garante que o body ocupe a altura total da janela */
+                background-color: #0a0a0a;
+                margin: 0;
+    }
+
+        .container {
+            background-color: #c2c1c1;
+            top: 50px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-top: 100px;
+            /* Adiciona espaço abaixo do h1 */
+        }
+
+        h1 {
+            position: absolute;
+            /* Posiciona o h1 no topo */
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Centraliza horizontalmente */
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 10px 0;
+            background-color: #f4f4f4;
+            /* Cor de fundo para destacar */
+            width: 100%;
+            /* Ocupa toda a largura */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Adiciona sombra */
+        }
+
+        h2 {
+            text-align: center;
+            top: 30px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .form-group {
+            top: 50px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            top: 10px;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            top: 30px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .register-link a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>BEM VINDOS AO NOSSO SISTEMA DE CONTROLE DE ESTOQUE</h1>
+        <h2>Login</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Nome de Usuário:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        <div class="register-link">
+            Não tem uma conta? <a href="{{ url_for('register') }}">Cadastre-se</a>
+        </div>
+    </div>
+</body>
+
+</html>

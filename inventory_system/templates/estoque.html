@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estoque</title>
+    <style>
+        body { font-family: sans-serif; background-color: #080808; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        .container { background-color: #c2c1c1; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 80%; max-width: 800px; margin-top: 30px; }
+        h2 { text-align: center; margin-bottom: 20px; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f0f0f0; color: #333; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .add-form { margin-bottom: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 4px; }
+        .add-form h3 { margin-top: 0; color: #555; margin-bottom: 10px; }
+        .form-group { margin-bottom: 10px; display: flex; align-items: center; }
+        .form-group label { width: 100px; display: inline-block; margin-right: 10px; color: #555; }
+        .form-group input[type="text"], .form-group input[type="number"] { flex-grow: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .add-form button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        .add-form button:hover { background-color: #0056b3; }
+        .logout-link { text-align: right; margin-bottom: 15px; }
+        .logout-link a { color: #d9534f; text-decoration: none; padding: 8px 12px; border: 1px solid #d9534f; border-radius: 4px; font-size: 0.9em; }
+        .logout-link a:hover { background-color: #d9534f; color: white; }
+        .remove-button { background: none; border: none; color: #d9534f; cursor: pointer; padding: 0; margin: 0; }
+        .remove-button:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logout-link">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <h2>Estoque</h2>
+        <div class="add-form">
+            <h3>Adicionar Novo Item</h3>
+            <form method="POST" action="{{ url_for('add_item') }}">
+                <div class="form-group">
+                    <label for="item_name">Nome do Item:</label>
+                    <input type="text" id="item_name" name="item_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                </div>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Item</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in inventories %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td><a href="{{ url_for('remove_item', item_id=item.id) }}" class="remove-button">Remover</a></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">Nenhum item no estoque.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
