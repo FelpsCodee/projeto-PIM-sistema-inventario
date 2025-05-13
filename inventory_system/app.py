@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-# Configuração do aplicativo Flask
+# Configuração do aplicativo Flask sssasasa
 app = Flask(__name__)
 # Chave secreta para segurança da sessão (você pode alterar isso)
 app.config['SECRET_KEY'] = 'chave_super_secreta'
