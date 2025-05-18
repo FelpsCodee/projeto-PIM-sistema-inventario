@@ -25,6 +25,8 @@ class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_name = db.Column(db.String(150), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    type = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 # Função para criar as tabelas do banco de dados (será chamada na inicialização)
@@ -77,7 +79,9 @@ def add_item():
     if 'user_id' in session:
         item_name = request.form['item_name']
         quantity = request.form['quantity']
-        new_item = Inventory(item_name=item_name, quantity=quantity, user_id=session['user_id'])
+        price = request.form['price']
+        type = request.form['type']
+        new_item = Inventory(item_name=item_name, quantity=quantity,price=price,type=type, user_id=session['user_id'])
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('index'))
@@ -99,6 +103,9 @@ def remove_item(item_id):
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
+@app.template_filter('real')
+def real_format(value):
+    return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 if __name__ == '__main__':
     create_database() # Cria as tabelas do banco de dados se não existirem
