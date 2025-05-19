@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-# Configuração do aplicativo Flask sssasasa
+# Configuração do aplicativo Flask
 app = Flask(__name__)
 # Chave secreta para segurança da sessão (você pode alterar isso)
 app.config['SECRET_KEY'] = 'chave_super_secreta'
@@ -27,7 +27,7 @@ class Inventory(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     type = db.Column(db.String(50), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
 
 # Função para criar as tabelas do banco de dados (será chamada na inicialização)
 def create_database():
@@ -98,6 +98,23 @@ def remove_item(item_id):
         return redirect(url_for('index'))
     return redirect(url_for('login'))
 
+@app.route('/update/<int:item_id>', methods=['GET', 'POST'])
+def update_item(item_id):
+    if 'user_id' in session:
+        item = Inventory.query.filter_by(id=item_id, user_id=session['user_id']).first()
+        if not item:
+            return redirect(url_for('index'))
+        if request.method == 'POST':
+            item.item_name = request.form['item_name']
+            item.quantity = request.form['quantity']
+            item.price = request.form['price']
+            item.type = request.form['type']
+            db.session.commit()
+            return redirect(url_for('index'))
+        return render_template('update_item.html', item=item)
+    return redirect(url_for('login'))
+
+
 # Rota para fazer logout
 @app.route('/logout')
 def logout():
@@ -107,6 +124,9 @@ def logout():
 def real_format(value):
     return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
+
+
 if __name__ == '__main__':
     create_database() # Cria as tabelas do banco de dados se não existirem
     app.run(debug=True)
+    

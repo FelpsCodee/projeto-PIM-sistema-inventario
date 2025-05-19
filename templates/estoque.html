@@ -187,6 +187,11 @@
                 class="remove-button"
                 >Remover</a
               >
+                <a
+                href="{{ url_for('update_item', item_id=item.id) }}"
+                class="update-button"
+                >Atualizar Produto</a
+              >
             </td>
           </tr>
           {% else %}
