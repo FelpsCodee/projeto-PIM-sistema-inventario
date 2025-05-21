@@ -3,113 +3,153 @@
   <head>
     <title>Estoque</title>
     <style>
-      body {
-        font-family: sans-serif;
-        background-color: #080808;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .container {
-        background-color: #c2c1c1;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 80%;
-        max-width: 800px;
-        margin-top: 30px;
-      }
-      h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
-      th {
-        background-color: #f0f0f0;
-        color: #333;
-      }
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-      .add-form {
-        margin-bottom: 20px;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-      .add-form h3 {
-        margin-top: 0;
-        color: #555;
-        margin-bottom: 10px;
-      }
-      .form-group {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-      }
-      .form-group label {
-        width: 100px;
+            body {
+              font-family: sans-serif;
+              background-color: #080808;
+              margin: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .container {
+              background-color: #c2c1c1;
+              padding: 30px;
+              border-radius: 8px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              width: 80%;
+              max-width: 800px;
+              margin-top: 30px;
+            }
+            h2 {
+              text-align: center;
+              margin-bottom: 20px;
+              color: #333;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 20px;
+            }
+            th,
+            td {
+              border: 1px solid #ddd;
+              padding: 10px;
+              text-align: left;
+            }
+            th {
+              background-color: #f0f0f0;
+              color: #333;
+            }
+            tr:nth-child(even) {
+              background-color: #f9f9f9;
+            }
+            .add-form {
+              margin-bottom: 20px;
+              padding: 20px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+            }
+            .add-form h3 {
+              margin-top: 0;
+              color: #555;
+              margin-bottom: 10px;
+            }
+            .form-group {
+              margin-bottom: 10px;
+              display: flex;
+              align-items: center;
+            }
+            .form-group label {
+              width: 100px;
+              display: inline-block;
+              margin-right: 10px;
+              color: #555;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="number"] {
+              flex-grow: 1;
+              padding: 8px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              box-sizing: border-box;
+            }
+            .add-form button {
+              background-color: #007bff;
+              color: white;
+              padding: 10px 15px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+            .add-form button:hover {
+              background-color: #0056b3;
+            }
+            .logout-link {
+              text-align: right;
+              margin-bottom: 15px;
+            }
+            .logout-link a {
+              color: #d9534f;
+              text-decoration: none;
+              padding: 8px 12px;
+              border: 1px solid #d9534f;
+              border-radius: 4px;
+              font-size: 0.9em;
+            }
+            .logout-link a:hover {
+              background-color: #d9534f;
+              color: white;
+            }
+            .remove-button {
+              background: none;
+              border: none;
+              color: #d9534f;
+              cursor: pointer;
+              padding: 0;
+              margin: 0;
+            }
+            .update-button {
+              background: none;
+              border: none;
+              color: #007bff;
+              cursor: pointer;
+              padding: 0;
+              margin: 0;
+              text-decoration: none;
+            }
+            .update-button:hover {
+              text-decoration: underline;
+            }
+            .remove-button:hover {
+              text-decoration: underline;
+            }
+
+            .button-style {
         display: inline-block;
-        margin-right: 10px;
-        color: #555;
-      }
-      .form-group input[type="text"],
-      .form-group input[type="number"] {
-        flex-grow: 1;
-        padding: 8px;
-        border: 1px solid #ddd;
+        padding: 8px 16px;
         border-radius: 4px;
-        box-sizing: border-box;
-      }
-      .add-form button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
         border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .add-form button:hover {
-        background-color: #0056b3;
-      }
-      .logout-link {
-        text-align: right;
-        margin-bottom: 15px;
-      }
-      .logout-link a {
-        color: #d9534f;
+        font-size: 1em;
         text-decoration: none;
-        padding: 8px 12px;
-        border: 1px solid #d9534f;
-        border-radius: 4px;
-        font-size: 0.9em;
+        transition: background 0.2s, color 0.2s;
       }
-      .logout-link a:hover {
-        background-color: #d9534f;
-        color: white;
-      }
-      .remove-button {
-        background: none;
-        border: none;
+      .remove-button.button-style {
+        background: #fff;
         color: #d9534f;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
+        border: 1px solid #d9534f;
       }
-      .remove-button:hover {
-        text-decoration: underline;
+      .remove-button.button-style:hover {
+        background: #d9534f;
+        color: #fff;
+      }
+      .update-button.button-style {
+        background: #fff;
+        color: #007bff;
+        border: 1px solid #007bff;
+      }
+      .update-button.button-style:hover {
+        background: #007bff;
+        color: #fff;
       }
     </style>
   </head>
@@ -182,16 +222,18 @@
             <td>R$ {{ "%.2f"|format(item.price) }}</td>
             <td>{{ item.type }}</td>
             <td>
-              <a
-                href="{{ url_for('remove_item', item_id=item.id) }}"
-                class="remove-button"
-                >Remover</a
-              >
+              <div style="display: flex; gap: 10px">
                 <a
-                href="{{ url_for('update_item', item_id=item.id) }}"
-                class="update-button"
-                >Atualizar Produto</a
-              >
+                  href="{{ url_for('remove_item', item_id=item.id) }}"
+                  class="remove-button button-style"
+                  >Remover</a
+                >
+                <a
+                  href="{{ url_for('update_item', item_id=item.id) }}"
+                  class="update-button button-style"
+                  >Editar</a
+                >
+              </div>
             </td>
           </tr>
           {% else %}
